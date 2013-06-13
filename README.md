@@ -1,20 +1,27 @@
 hat
 ===
 
-Powershell script to do Yeoman like tasks.
+Powershell script to do Yeoman like tasks in Visual Studio 2012. (Only tested in VS2012).
 
+Supports creating angular templates for controller, route, directive, filter, view, and service.
 
-Install - Create the NuGet_profile.ps1 that Package Manager Console uses.
+##Install
+Create the NuGet_profile.ps1 that Package Manager Console uses.
 
 From the Package Manager Console in Visual Studio [2012]
-a. PM> mkdir -force (split-path $profile)
-b. PM> notepad $profile
-c. copy the content of NuGet_profile.ps1 to the notepad that just opened.
 
+```
+PM> mkdir -force (split-path $profile)
+PM> notepad $profile
+# Copy the content of NuGet_profile.ps1 to the notepad that just opened.
+```
 
-Requirements - Web structure
+##Requirements 
+Web structure
 
 In package manager console, you must be in the root of the website and the site is in the Yeoman structure.
+
+```
 $/
   +app
     +scripts
@@ -24,14 +31,18 @@ $/
       +services
     -app.js
   +views
+```
 
 This is the structure that Yeoman creates.
+
 Dont worry if folders do not exist, hat will make them.
 
 
-Usage - from Package Manager Console
+##Usage - from Package Manager Console
 
+```
 PM> hat route admin/users
+```
 
 Valid commands are: controller, route, directive, filter, view, and service.
 
