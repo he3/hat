@@ -1,5 +1,8 @@
 function hat {
 
+	# Refresh package manager profile
+	# > . $profile
+
 	param (
 	  [string]$template,
 	  [string]$value
@@ -8,7 +11,18 @@ function hat {
 	$value = $value.replace("/","\")
 	
 	$solutionDir = $(get-location)
+	
+	$indexInApp = $true
 	$indexPath = [System.String]::Concat($solutionDir, '\', "app\index.html")
+	if (!(Test-Path $indexPath)) {
+		$indexPath = [System.String]::Concat($solutionDir, '\', "index.html")
+		if (!(Test-Path $indexPath)) {
+			write-host "index.html not found." -foregroundcolor red
+			return $false
+		}
+		$indexInApp = $false
+	}
+	
 	$appPath = [System.String]::Concat($solutionDir, '\', "app\scripts\app.js")
 	$appName = (select-string "angular.module.'.*'. ..." "$appPath")[0].Line.split("'")[1]
 	$fileName = $value.split("\")[-1]
@@ -84,6 +98,8 @@ function hat {
 		return $false
 	}
 	
+	
+	
 	###########################################################################
 	# Create Controller File
 	if($createController)
@@ -111,12 +127,19 @@ angular.module('$appName')
 		$string | out-file "$filePath"
 	}
 	
+	
+	
 	###########################################################################
 	# Create the script reference in index.html
 	if($createScriptRef)
 	{
-		# Update Index File		
-		$scriptIncludeTag = "    <script src=`"scripts/" + $scriptFolderName + "/" + $value.replace("\", "/") + ".js`"></script>"
+		# Update Index File
+		$scriptPath = ""
+		if(!($indexInApp)) {
+			$scriptPath = "app/"
+		}
+		$scriptPath = $scriptPath + "scripts/" + $scriptFolderName + "/" + $value.replace("\", "/") + ".js"
+		$scriptIncludeTag = "    <script src=`"" + $scriptPath + "`"></script>"
 				
 		if(!(Select-String -Simple $scriptIncludeTag $indexPath))
 		{
@@ -147,6 +170,8 @@ angular.module('$appName')
 		}
 	}
 	
+	
+	
 	###########################################################################
 	# Create a view
 	if($createView)
@@ -169,12 +194,20 @@ angular.module('$appName')
 		$string | out-file "$filePath"
 	}
 	
+	
+	
 	###########################################################################
 	# Create A route in the app.js file
 	if($createRoute)
 	{	
+		$viewPath = ""
+		if(!($indexInApp)) {
+			$viewPath = "app/"
+		}
+		$viewPath = $viewPath + "views/" + $value.replace("\", "/") + ".html"
+	
 		$route1 = "      .when('" + $value.replace("\", "/") + "', {"
-		$route2 = "        templateUrl: 'views/" + $value.replace("\", "/") + ".html',"
+		$route2 = "        templateUrl: '" + $viewPath + "',"
 		$route3 = "        controller: '$controllerName'"
 		$route4 = "      })"
 				
@@ -198,6 +231,8 @@ angular.module('$appName')
 			} | Set-Content $appPath
 		}
 	}
+	
+	
 	
 	###########################################################################
 	# Create a directive
@@ -234,6 +269,8 @@ angular.module('$appName')
 		$string | out-file "$filePath"
 	}
 	
+	
+	
 	###########################################################################
 	# Create a filter
 	if($createFilter)
@@ -264,6 +301,8 @@ angular.module('$appName')
 		
 		$string | out-file "$filePath"
 	}
+	
+	
 	
 	###########################################################################
 	# Create a service
