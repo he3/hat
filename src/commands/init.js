@@ -1,15 +1,22 @@
 var nconf = require('nconf'),
   fs = require('fs');
 
-function InitializeCommand() {
-
+function InitializeCommand(dir) {
+  Object.defineProperties(this, {
+    workingDir: {value: dir, enumerable: true }
+  })
 }
 
-InitializeCommand.prototype.run = function (rootDir) {
-  var defaultConfig = nconf.file(rootDir + '/src/config/config.json');
-  var hatConfig = nconf.file(rootDir + "/hat.config");
+InitializeCommand.prototype.run = function () {
+  var self = this;
 
-  hatConfig.set('root', rootDir);
+  var hatConfigPath = self.workingDir + "/hat.json";
+  console.log(hatConfigPath);
+  console.log(self);
+  var defaultConfig = nconf.file(self.workingDir + '/src/config/config.json');
+  var hatConfig = nconf.file(hatConfigPath);
+
+  hatConfig.set('root', self.workingDir);
   hatConfig.set('templates', "");
   hatConfig.set('editVsFile', defaultConfig.get('editVsFile'));
 
@@ -17,7 +24,7 @@ InitializeCommand.prototype.run = function (rootDir) {
     if (err) {
       console.error(err);
     } else {
-      fs.readFile(rootDir + "/hat.config", function (err, data) {
+      fs.readFile(hatConfigPath, function (err, data) {
         if (err) {
           console.error(err);
         } else {

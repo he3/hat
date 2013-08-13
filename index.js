@@ -1,30 +1,12 @@
-var fs = require('fs')
-  , program = require('commander')
-  ; HatCommands = require("./src/commands");
+var Hat = require('./Hat')
+  , ApplicationError = require('./src/config/ApplicationErrors')
+  ;
 
-var hatCommands = new HatCommands(__dirname);
-
-if (fs.exists('./hat.config'), function (exists) {
-  if (!exists) {
-    console.error('Please run the init command, no hat.json file exists');
-    process.exit(-1);
+var hat = new Hat(__dirname);
+try {
+  hat.run(process.argv);
+} catch(e){
+  if (e instanceof  ApplicationError.ConfigFile){
+    console.error("Please run 'hat init', to setup the hat.config file");
   }
-})
-
-program
-  .command('init')
-  .description("Initializes hat and sets up the hat.config file")
-  .action(function () {
-    hatCommands.initialize().run(__dirname);
-  });
-
-
-program
-  .version('0.0.1')
-  .parse(process.argv);
-
-if (!program.args.length) {
-  program.help();
 }
-
-module.exports = program;

@@ -1,11 +1,9 @@
 var InitializeCommand = require('./init');
 
-function HatCommands(){
-
-}
-
-HatCommands.prototype.initialize = function(){
-  return new InitializeCommand();
-}
+function HatCommands(dir) {
+  Object.defineProperties(this, {
+    initialize: { value: new InitializeCommand(dir), enumerable: true }
+  });
+};
 
 module.exports = HatCommands;
