@@ -1,0 +1,6 @@
+--require should
+--colors true
+--recursive
+--ui bdd
+--watch
+--reporter spec
