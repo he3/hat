@@ -1,2 +1,2 @@
 //require('./args.js');
-require('./commands/init.js');
+//require('./commands/init.js');

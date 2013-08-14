@@ -1,10 +1,13 @@
 {
   "name": "hat",
   "version": "0.0.1",
-  "description": "HAT is an angular generator built to ease development in angular without provide friction on the type of development environment your performing your angular development.  ",
-  "main": "index.js",
+  "description": "Angular code generator and scaffolder",
+  "main": "index",
+  "bin": {
+    "hat": "./bin/hat"
+  },
   "scripts": {
-    "test": "mocha test/index.js"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -12,16 +15,28 @@
   },
   "keywords": [
     "angular",
+    "code",
     "generator",
-    "scaffolding"
+    "scaffold"
   ],
-  "author": "Henry Erich, Tyler Garlick",
+  "author": [
+    "Henry Erich",
+    "Tyler Garlick"
+  ],
+  "maintainers": [
+    "Henry Erich",
+    "Tyler Garlick"
+  ],
   "license": "MIT",
-  "gitHead": "fee4ae00598ec479a8e8c444c403ebdc4dd4bd9c",
-  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/he3/hat/issues"
+  },
   "dependencies": {
     "commander": "~2.0.0",
-    "nconf": "~0.6.7"
+    "nconf": "~0.6.7",
+    "prompt": "~0.2.11",
+    "colors": "~0.6.1",
+    "handlebars": "~1.0.12"
   },
   "devDependencies": {
     "mocha": "~1.12.0",

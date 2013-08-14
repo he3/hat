@@ -1,0 +1,8 @@
+{
+  "root": "/Users/tylergarlick/NodeJS/hat",
+  "templates": "",
+  "useModules": true,
+  "angularApp": "app",
+  "angularPath": "/public/app",
+  "angularAbsPath": "/Users/tylergarlick/NodeJS/hat/tmp"
+}
