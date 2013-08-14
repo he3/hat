@@ -1,0 +1,8 @@
+<form name="{{formName}}" novalidate>
+  {{ controls }}
+	<div class="form-controls">
+		<a href="#" class="btn btn-default pull-left">Cancel</a>
+		<button type="submit" class="btn btn-primary pull-right" ng-disabled="form.$invalid">{{action}}</button>
+		<div class="clearfix"></div>
+	</div>
+</form>

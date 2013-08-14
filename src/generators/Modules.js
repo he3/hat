@@ -39,7 +39,7 @@ ModuleGenerator.prototype.run = function () {
 
     var filepath = path.join(dirPath, result.fileName);
     if (fs.existsSync(filepath)) {
-      //ToDo: Do some parsing
+      //TODO: File Parsing... Yeehaw
     } else {
       var renderedTemplate = template({ name: result.name });
       fs.writeFileSync(filepath, renderedTemplate);
