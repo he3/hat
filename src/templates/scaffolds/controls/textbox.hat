@@ -1,8 +1,29 @@
 <div class="form-group" ng-class="{'has-error': form.{{name}}.$invalid}}">
 	<label for="{{name}}">{{name}}</label>
-	<input type="text" name="{{name}}" id="{{name}}" class="form-control" ng-model="{{model}}" placeholder="{{label}}" {{#if required}} required {{/if}} {{#if hasMinimum }} minimum="{{minimum}}" {{/if}} {{#if hasMinLength}} ng-minlength="{{minLength}}" {{/if}} />
+	<input type="text" name="{{name}}" id="{{name}}" class="form-control" ng-model="{{model}}" placeholder="{{label}}"
+    {{#if required}} required {{/if}}
+    {{#if minimum }} minimum="{{minimum}}" {{/if}}
+    {{#if maximum }} maximum="{{maximum}}" {{/if}}
+    {{#if minLength}} ng-minlength="{{minLength}}" {{/if}}
+    {{#if maxlength}} ng-maxlength="{{maxlength}}" {{/if}} />
   {{#if required}}
-		<span class="help-block" ng-show="form.{{name}}.$error.required && form.{{name}}.$dirty">{{name}}
+		<span class="help-block text-error" ng-show="form.{{name}}.$error.required && form.{{name}}.$dirty">{{name}}
 			is required</span>
+  {{/if}}
+  {{#if minimum}}
+		<span class="help-block text-error" ng-show="form.{{name}}.$error.minimum && form.{{name}}.$dirty">{{name}}
+			must be greater than {{minimum}}</span>
+  {{/if}}
+  {{#if maximum}}
+		<span class="help-block text-error" ng-show="form.{{name}}.$error.maximum && form.{{name}}.$dirty">{{name}}
+			must be less than {{maximum}}</span>
+  {{/if}}
+  {{#if minLength}}
+		<span class="help-block text-error" ng-show="form.{{name}}.$error.minLength && form.{{name}}.$dirty">{{name}}
+			have at least {{minLength}} characters</span>
+  {{/if}}
+  {{#if maxlength}}
+		<span class="help-block text-error" ng-show="form.{{name}}.$error.maxlength && form.{{name}}.$dirty">{{name}}
+			must be less than {{maxLength}} charactes</span>
   {{/if}}
 </div>
